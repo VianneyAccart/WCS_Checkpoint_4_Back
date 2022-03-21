@@ -1,16 +1,10 @@
-package com.wildcodeschool.mfpl.entity;
+package com.wildcodeschool.mfpl.dto;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
-public class Exercise {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CreateExerciseDto {
 
     @NotBlank
     @Size(min = 1, max = 100)
@@ -21,17 +15,7 @@ public class Exercise {
     private String description;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "muscular_group_id")
-    private MuscularGroup muscularGroup;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Long muscularGroupId;
 
     public String getName() {
         return name;
@@ -49,11 +33,11 @@ public class Exercise {
         this.description = description;
     }
 
-    public MuscularGroup getMuscularGroup() {
-        return muscularGroup;
+    public Long getMuscularGroupId() {
+        return muscularGroupId;
     }
 
-    public void setMuscularGroup(MuscularGroup muscularGroup) {
-        this.muscularGroup = muscularGroup;
+    public void setMuscularGroupId(Long muscularGroupId) {
+        this.muscularGroupId = muscularGroupId;
     }
 }
