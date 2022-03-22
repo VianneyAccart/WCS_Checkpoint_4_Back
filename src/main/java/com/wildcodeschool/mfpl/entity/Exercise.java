@@ -1,9 +1,13 @@
 package com.wildcodeschool.mfpl.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 public class Exercise {
@@ -19,6 +23,11 @@ public class Exercise {
     @NotBlank
     @Size(min = 1, max = 1500)
     private String description;
+
+    @NotNull
+    @CreatedDate
+    @PastOrPresent
+    private Date creationDate;
 
     @NotNull
     @ManyToOne
@@ -55,5 +64,13 @@ public class Exercise {
 
     public void setMuscularGroup(MuscularGroup muscularGroup) {
         this.muscularGroup = muscularGroup;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }
