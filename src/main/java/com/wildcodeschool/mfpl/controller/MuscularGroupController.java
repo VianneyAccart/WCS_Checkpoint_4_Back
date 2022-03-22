@@ -1,13 +1,13 @@
 package com.wildcodeschool.mfpl.controller;
 
+import com.wildcodeschool.mfpl.dto.CreateMuscularGroupDto;
 import com.wildcodeschool.mfpl.entity.MuscularGroup;
 import com.wildcodeschool.mfpl.service.MuscularGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,5 +21,25 @@ public class MuscularGroupController {
     @GetMapping("/muscular-groups")
     public List<MuscularGroup> getMuscularGroups() {
         return muscularGroupService.getMuscularGroups();
+    }
+
+    @GetMapping("/muscular-group/{id}")
+    public MuscularGroup getMuscularGroupById(@PathVariable() Long id) {
+        return muscularGroupService.getMuscularGroupById(id);
+    }
+
+    @PostMapping("/muscular-group/create")
+    public ResponseEntity<String> createMuscularGroup(@Valid CreateMuscularGroupDto createMuscularGroupDto) {
+        return muscularGroupService.createMuscularGroup(createMuscularGroupDto);
+    }
+
+    @PatchMapping("/muscular-group/{id}/modify")
+    public ResponseEntity<String> modifyMuscularGroupById(@PathVariable() Long id, @Valid CreateMuscularGroupDto createMuscularGroupDto) {
+        return muscularGroupService.modifyMuscularGroupById(id, createMuscularGroupDto);
+    }
+
+    @DeleteMapping("/muscular-group/{id}/delete")
+    public ResponseEntity<String> deleteMuscularGroupById(@PathVariable() Long id) {
+        return muscularGroupService.deleteMuscularGroupById(id);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,8 +37,9 @@ public class ExerciseService {
         Exercise exercise = new Exercise();
         exercise.setName(createExerciseDto.getName());
         exercise.setDescription(createExerciseDto.getDescription());
-        MuscularGroup muscularGroup = muscularGroupService.getMuscularGroup(createExerciseDto);
+        MuscularGroup muscularGroup = muscularGroupService.getMuscularGroupById(createExerciseDto.getMuscularGroupId());
         exercise.setMuscularGroup(muscularGroup);
+        exercise.setCreationDate(new Date());
         exerciseRepository.save(exercise);
         return new ResponseEntity<>("Exercise " + exercise.getName() + " well created", HttpStatus.OK);
     }
@@ -46,7 +48,7 @@ public class ExerciseService {
         Exercise exercise = getExerciseById(id);
         exercise.setName(createExerciseDto.getName());
         exercise.setDescription(createExerciseDto.getDescription());
-        MuscularGroup muscularGroup = muscularGroupService.getMuscularGroup(createExerciseDto);
+        MuscularGroup muscularGroup = muscularGroupService.getMuscularGroupById(createExerciseDto.getMuscularGroupId());
         exercise.setMuscularGroup(muscularGroup);
         exerciseRepository.save(exercise);
         return new ResponseEntity<>("Exercise well modified", HttpStatus.OK);
