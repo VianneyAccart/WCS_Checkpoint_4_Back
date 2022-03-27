@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
+import java.util.Comparator;
 import java.util.Date;
 
 @Entity
@@ -73,4 +74,6 @@ public class Exercise {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
+    public static Comparator<Exercise> sortByAscendingName = Comparator.comparing(s -> s.name);
 }

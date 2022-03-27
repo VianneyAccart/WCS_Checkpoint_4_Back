@@ -68,6 +68,9 @@ public class ExerciseService {
     public List<Exercise> getExercisesByMuscularGroupId(@PathVariable() Long id) {
         MuscularGroup muscularGroup = muscularGroupRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return new ArrayList<>(muscularGroup.getExercises());
+
+        List<Exercise> exercises = new ArrayList<>(muscularGroup.getExercises());
+        exercises.sort(Exercise.sortByAscendingName);
+        return exercises;
     }
 }
