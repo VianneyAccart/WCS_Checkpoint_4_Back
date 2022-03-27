@@ -28,12 +28,17 @@ public class ExerciseController {
         return exerciseService.getExerciseById(id);
     }
 
-    @PostMapping("exercise/create")
+    @GetMapping("/muscular-group/{id}/exercises")
+    public List<Exercise> getExercisesByMuscularGroupId(@PathVariable() Long id) {
+        return exerciseService.getExercisesByMuscularGroupId(id);
+    }
+
+    @PostMapping("/exercise/create")
     public ResponseEntity<String> createExercise(@Valid CreateExerciseDto createExerciseDto) {
         return exerciseService.createExercise(createExerciseDto);
     }
 
-    @PatchMapping("exercise/{id}/modify")
+    @PatchMapping("/exercise/{id}/modify")
     public ResponseEntity<String> modifyExerciseById(@PathVariable() Long id, @Valid CreateExerciseDto createExerciseDto) {
         return exerciseService.modifyExerciseById(id, createExerciseDto);
     }

@@ -4,6 +4,7 @@ import com.wildcodeschool.mfpl.dto.CreateExerciseDto;
 import com.wildcodeschool.mfpl.entity.Exercise;
 import com.wildcodeschool.mfpl.entity.MuscularGroup;
 import com.wildcodeschool.mfpl.repository.ExerciseRepository;
+import com.wildcodeschool.mfpl.repository.MuscularGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +25,9 @@ public class ExerciseService {
 
     @Autowired
     MuscularGroupService muscularGroupService;
+
+    @Autowired
+    MuscularGroupRepository muscularGroupRepository;
 
     public List<Exercise> getExercises() {
         return exerciseRepository.findAll();
@@ -58,5 +63,11 @@ public class ExerciseService {
         Exercise exercise = getExerciseById(id);
         exerciseRepository.deleteById(exercise.getId());
         return new ResponseEntity<>("Exercise well deleted", HttpStatus.OK);
+    }
+
+    public List<Exercise> getExercisesByMuscularGroupId(@PathVariable() Long id) {
+        MuscularGroup muscularGroup = muscularGroupRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return new ArrayList<>(muscularGroup.getExercises());
     }
 }
