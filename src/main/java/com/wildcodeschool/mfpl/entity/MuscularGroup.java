@@ -1,5 +1,7 @@
 package com.wildcodeschool.mfpl.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -16,6 +18,7 @@ public class MuscularGroup {
     @Size(min = 1, max = 150)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "muscularGroup")
     private List<Exercise> exercises;
 
